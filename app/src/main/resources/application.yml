@@ -1,0 +1,23 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: zdf-loans-module
+  config:
+    import: optional:configserver:http://192.168.10.40:7100
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://192.168.10.40:7111
+
+serial:
+  number:
+    main-project:
+      prefix: "ZDFBF/PR"
+    project:
+      prefix: "ZDFBF/P"
+      default: "ZDFBF/P/000000"
+
+parameters:
+  url: http://192.168.10.40:7203

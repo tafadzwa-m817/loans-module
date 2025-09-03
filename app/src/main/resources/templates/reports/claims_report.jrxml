@@ -1,0 +1,393 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="claims_report" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="371ade46-3410-4429-8475-5c55311649de">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="finance_loans_module"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="runby" class="java.lang.String"/>
+	<parameter name="claim_status" class="java.lang.String"/>
+	<parameter name="claim_type" class="java.lang.String"/>
+	<query language="sql"><![CDATA[select force_number,
+       claim_type,
+       claim_status,
+       (account_holder_name+ ' ' + account_holder_surname) AS member,
+       (claimant_name + ' ' + claimant_surname) AS claimant,
+       claim_amount,
+       (SELECT currency_name 
+       FROM [zdf-bf-system-parameters].dbo.currencies
+       WHERE id = currency_id) AS currency_name
+from claim
+where
+    (claim_type = $P{claim_type} OR $P{claim_type} IS NULL)
+and (claim_status = $P{claim_status} OR $P{claim_status} IS NULL)
+]]></query>
+	<field name="force_number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="force_number"/>
+		<property name="com.jaspersoft.studio.field.label" value="force_number"/>
+	</field>
+	<field name="claim_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="claim_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="claim_type"/>
+	</field>
+	<field name="claim_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="claim_status"/>
+		<property name="com.jaspersoft.studio.field.label" value="claim_status"/>
+	</field>
+	<field name="member" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="member"/>
+		<property name="com.jaspersoft.studio.field.label" value="member"/>
+	</field>
+	<field name="claimant" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="claimant"/>
+		<property name="com.jaspersoft.studio.field.label" value="claimant"/>
+	</field>
+	<field name="claim_amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="claim_amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="claim_amount"/>
+	</field>
+	<field name="currency_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="currency_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="currency_name"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="103" splitType="Stretch">
+		<element kind="textField" uuid="a50db6d4-8927-4858-ac0d-c490c75ac50e" x="611" y="35" width="100" height="20" fontSize="10.0" pattern="MMMM d, yyyy" hTextAlign="Left">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="image" uuid="826600c6-f90a-4d13-a0f6-b2db5421572a" x="0" y="10" width="189" height="90">
+			<expression><![CDATA["templates/zdfbf_logo.png"]]></expression>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+		</element>
+		<element kind="staticText" uuid="06007326-bb1e-4d4d-9e2e-d3c7d789b59a" x="280" y="10" width="230" height="40" fontSize="14.0" bold="true" vTextAlign="Top">
+			<text><![CDATA[ZIMBABWE DEFENCE FORCES
+BENEFIT FUND]]></text>
+		</element>
+		<element kind="staticText" uuid="635bd47b-ad89-4000-b1a4-c9254b0fccc1" x="280" y="50" width="190" height="50" fontSize="8.0">
+			<text><![CDATA[P.Bag 7720
+Causeway
+Harare
+email: zdfbenefitfund@gmail.com]]></text>
+		</element>
+		<element kind="rectangle" uuid="dd16f90d-3113-4ab3-88f3-a70619e5fa3b" x="0" y="100" width="800" height="1" backcolor="#DD117B">
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<pen lineWidth="0.0"/>
+		</element>
+		<element kind="rectangle" uuid="af5d8e40-2928-420d-b177-04295a3ee10a" x="0" y="102" width="800" height="1" backcolor="#00A8F3">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<pen lineWidth="0.0"/>
+		</element>
+		<element kind="staticText" uuid="3d5d2a2f-f493-4ccb-93f6-ded1ef463f47" x="550" y="10" width="173" height="23" backcolor="#2F5FB5" fontSize="14.0" bold="true" hTextAlign="Left" vTextAlign="Top">
+			<text><![CDATA[CLAIMS REPORT]]></text>
+		</element>
+		<element kind="staticText" uuid="2393140b-49c5-4026-89b8-78beb37ae80f" x="550" y="35" width="60" height="20" fontSize="10.0" bold="true">
+			<text><![CDATA[Run Date:]]></text>
+		</element>
+		<element kind="staticText" uuid="efa82242-3609-46cf-bf05-989e87c4d7ea" x="550" y="55" width="60" height="20" fontSize="10.0" bold="true">
+			<text><![CDATA[Run By:]]></text>
+		</element>
+		<element kind="textField" uuid="a56fbf4a-840b-4c53-98e4-1b0e394eb93a" x="611" y="55" width="145" height="20">
+			<expression><![CDATA[$P{runby}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+	</title>
+	<columnHeader height="92" splitType="Stretch">
+		<element kind="staticText" uuid="f6618479-1046-40ab-9abd-f6dd51b91312" mode="Opaque" x="0" y="53" width="105" height="30" backcolor="#BFE1FF" bold="true" hTextAlign="Center" vTextAlign="Top">
+			<text><![CDATA[Force Number]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3ec7e73-c285-4b65-b56b-65cbf57d029a"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<box>
+				<pen lineColor="#EDEBEB"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="bc236878-e962-4820-bea7-2a6cc856f037" mode="Opaque" x="105" y="53" width="105" height="30" backcolor="#BFE1FF" bold="true" hTextAlign="Center" vTextAlign="Top">
+			<text><![CDATA[Member]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f57cbc74-3681-439c-a178-cb9f13bdfd5e"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<box>
+				<pen lineColor="#EDEBEB"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="0baae967-1889-446b-ac07-be90e76c340e" mode="Opaque" x="210" y="53" width="110" height="30" backcolor="#BFE1FF" bold="true" hTextAlign="Center" vTextAlign="Top">
+			<text><![CDATA[Claimant]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="304e33fc-8d91-4bd2-a8f4-b32e6a259334"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<box>
+				<pen lineColor="#EDEBEB"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="2d1366b3-ed91-4185-a431-a0b94193acce" mode="Opaque" x="320" y="53" width="130" height="30" backcolor="#BFE1FF" bold="true" hTextAlign="Center" vTextAlign="Top">
+			<text><![CDATA[Claim Type]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cf073ee3-8825-45e3-8cff-90e781287333"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<box>
+				<pen lineColor="#EDEBEB"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="bbe240ec-503c-46c2-8b41-88fc933286f9" mode="Opaque" x="450" y="53" width="130" height="30" backcolor="#BFE1FF" bold="true" hTextAlign="Right" vTextAlign="Top">
+			<paragraph rightIndent="2"/>
+			<text><![CDATA[Claim Amount]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="227d463e-e504-48ec-a8fc-692e22076dcd"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+			<box>
+				<pen lineColor="#EDEBEB"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="103ebfa0-1128-4063-be73-73cb4b7c2ecb" mode="Opaque" x="580" y="53" width="90" height="30" backcolor="#BFE1FF" bold="true" hTextAlign="Right" vTextAlign="Top">
+			<paragraph rightIndent="3"/>
+			<text><![CDATA[Currency]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2f0106fc-dbd6-412f-9457-ee0c2265f384"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+			<box>
+				<pen lineColor="#EDEBEB"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="2b033fbb-3b04-4f12-a124-97591f29682b" mode="Opaque" x="670" y="53" width="130" height="30" backcolor="#BFE1FF" bold="true" hTextAlign="Center" vTextAlign="Top">
+			<paragraph rightIndent="2"/>
+			<text><![CDATA[Claim Status]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fdf1ebe4-99de-442f-b6df-b84b34fdee2a"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+			<box>
+				<pen lineColor="#EDEBEB"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="01629ac6-902c-4fe5-aedf-65593275ebe3" mode="Opaque" x="0" y="5" width="124" height="20" backcolor="#BFE1FF" fontSize="9.0" bold="true" hTextAlign="Center" vTextAlign="Top">
+			<text><![CDATA[Claim Type]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3ec7e73-c285-4b65-b56b-65cbf57d029a"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<pen lineColor="#EDEBEB"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="f871c2b4-b291-45c6-99b5-2155b810e172" mode="Opaque" x="124" y="5" width="124" height="20" backcolor="#BFE1FF" fontSize="9.0" bold="true" hTextAlign="Center" vTextAlign="Top">
+			<text><![CDATA[Claim Status]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f57cbc74-3681-439c-a178-cb9f13bdfd5e"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<pen lineColor="#EDEBEB"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="3c692f31-6f94-42e5-9514-1249a5baf26f" x="0" y="25" width="124" height="20" hTextAlign="Center">
+			<expression><![CDATA[$P{claim_type}!=null?$P{claim_type}:"N/A"]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<element kind="textField" uuid="633cb7ee-4667-486b-9c27-02b54dc34c22" x="124" y="25" width="124" height="20" hTextAlign="Center">
+			<expression><![CDATA[$P{claim_status}!=null?$P{claim_status}:"N/A"]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<element kind="textField" uuid="8b0c0cf3-9223-4bfc-8914-9a48a4a84801" x="0" y="3" width="105" height="20" fontSize="8.0" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{force_number}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3ec7e73-c285-4b65-b56b-65cbf57d029a"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#EDEBEB"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#EDEBEB"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="fe3b81cf-3b3e-43a2-a19e-88689e909378" x="105" y="3" width="105" height="20" fontSize="8.0" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{member}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3ec7e73-c285-4b65-b56b-65cbf57d029a"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#EDEBEB"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#EDEBEB"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="019b114d-237d-472c-8543-a01051d71484" x="210" y="3" width="110" height="20" fontSize="8.0" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{claimant}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3ec7e73-c285-4b65-b56b-65cbf57d029a"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#EDEBEB"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#EDEBEB"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="e8d81d4f-b115-446c-a6d5-d86797458961" x="320" y="3" width="130" height="20" fontSize="8.0" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{claim_type}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3ec7e73-c285-4b65-b56b-65cbf57d029a"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#EDEBEB"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#EDEBEB"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="283b2418-b289-4663-b02a-257d3c1a6447" x="450" y="3" width="130" height="20" fontSize="8.0" pattern="#,##0.00#;(#,##0.00#)" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+				<paragraph rightIndent="2"/>
+				<expression><![CDATA[$F{claim_amount}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3ec7e73-c285-4b65-b56b-65cbf57d029a"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#EDEBEB"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#EDEBEB"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="cc649018-ace6-4353-8f1f-f25341b3711d" x="580" y="3" width="90" height="20" fontSize="8.0" pattern="#,##0.00#;(#,##0.00#)" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+				<paragraph rightIndent="3"/>
+				<expression><![CDATA[$F{currency_name}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3ec7e73-c285-4b65-b56b-65cbf57d029a"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#EDEBEB"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#EDEBEB"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="08986e54-db10-444d-b7ec-a63e1abeb071" x="670" y="3" width="130" height="20" fontSize="8.0" pattern="#,##0.00#;(#,##0.00#)" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph rightIndent="3"/>
+				<expression><![CDATA[$F{claim_status}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3ec7e73-c285-4b65-b56b-65cbf57d029a"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#EDEBEB"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#EDEBEB"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#EDEBEB"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="33" splitType="Stretch">
+		<element kind="textField" uuid="7d99b244-dfca-4213-af97-bd38c90bafe1" x="406" y="3" width="100" height="30" evaluationTime="Report" hTextAlign="Left">
+			<expression><![CDATA[" of " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="70fa72fa-a45b-46b4-a999-6894222aa735" x="306" y="3" width="100" height="30" hTextAlign="Right">
+			<expression><![CDATA["Page " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+	<noData height="103">
+		<element kind="textField" uuid="b92d6a7b-94e5-4840-aecf-20a1949e8d4e" x="635" y="35" width="100" height="20" fontSize="10.0" pattern="MMMM d, yyyy" hTextAlign="Left">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="image" uuid="e00453aa-83e1-47af-a734-f8ec951a0783" x="0" y="10" width="189" height="90">
+			<expression><![CDATA["templates/zdfbf_logo.png"]]></expression>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+		</element>
+		<element kind="staticText" uuid="c1998da6-d773-4e80-83a5-020182c87468" x="280" y="10" width="230" height="40" fontSize="14.0" bold="true" vTextAlign="Top">
+			<text><![CDATA[ZIMBABWE DEFENCE FORCES
+BENEFIT FUND]]></text>
+		</element>
+		<element kind="staticText" uuid="d2882922-e7e7-41bd-a916-069683dbbd5e" x="280" y="50" width="190" height="50" fontSize="8.0">
+			<text><![CDATA[P.Bag 7720
+Causeway
+Harare
+email: zdfbenefitfund@gmail.com]]></text>
+		</element>
+		<element kind="rectangle" uuid="7da94b1e-b06e-4dc9-a75e-dd89f4283153" x="0" y="100" width="800" height="1" backcolor="#DD117B">
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<pen lineWidth="0.0"/>
+		</element>
+		<element kind="rectangle" uuid="0c6ca581-f2f3-447d-941c-0cb66457bb70" x="0" y="102" width="800" height="1" backcolor="#00A8F3">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<pen lineWidth="0.0"/>
+		</element>
+		<element kind="staticText" uuid="865edf63-daff-4d08-ac12-4406ce281995" x="550" y="10" width="173" height="23" backcolor="#2F5FB5" fontSize="14.0" bold="true" hTextAlign="Left" vTextAlign="Top">
+			<text><![CDATA[CLAIMS REPORT]]></text>
+		</element>
+		<element kind="staticText" uuid="e6f27bf3-de93-460d-9e92-9cd191ac05e7" x="550" y="35" width="60" height="20" fontSize="10.0" bold="true">
+			<text><![CDATA[Run Date:]]></text>
+		</element>
+		<element kind="staticText" uuid="e05aaa84-9929-4bea-8daf-8624528c0c71" x="550" y="55" width="60" height="20" fontSize="10.0" bold="true">
+			<text><![CDATA[Run By:]]></text>
+		</element>
+		<element kind="textField" uuid="ee8aa723-d4af-4187-b100-b54dae1c4c53" x="635" y="55" width="145" height="20">
+			<expression><![CDATA[$P{runby}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+	</noData>
+</jasperReport>
